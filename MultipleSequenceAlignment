@@ -1,2 +1,8 @@
+#Searches all the non-blank lines (-v = all that do not contain; ^$ = blank lines)
+grep -v '^$' input.txt > output.txt
+./getgb.py gispec_path out_dir
+gispec_path = file containing 3 tab separated fields containing outfile prefix, genotype, FI
+out_dir = output directory where .fasta files will be written
+
 /apps/well/python/2.7.6/bin/python
 /apps/well/mafft/7.149/bin/mafft --auto input.fasta > output.fasta
