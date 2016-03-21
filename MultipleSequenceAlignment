@@ -1,0 +1,2 @@
+/apps/well/python/2.7.6/bin/python
+/apps/well/mafft/7.149/bin/mafft --auto input.fasta > output.fasta
