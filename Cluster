@@ -1,3 +1,4 @@
+ssh cyndi@rescomp.well.ox.ac.uk
 Create script (save as .sh) and move script to /well/jknight/cyndi/scripts
 To submit a job: qsub /well/jknight/cyndi/scripts/nameofscript.sh 
 To query the status of the job: qstat
