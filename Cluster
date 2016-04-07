@@ -3,3 +3,5 @@ Create script (save as .sh) and move script to /well/jknight/cyndi/scripts
 To submit a job: qsub /well/jknight/cyndi/scripts/nameofscript.sh 
 To query the status of the job: qstat
 To delete the job: qdel <jobnumber>
+Scripts must specify absolute paths to files
+Export PATH often required to load required programs
