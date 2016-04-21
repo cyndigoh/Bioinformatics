@@ -1,0 +1,11 @@
+Generally useful scripts (version controlled in BSGOxford/camilla/mgtools)
+/well/bsg/microbial/mgtools
+
+To select a random 1.2% of readings/values from a larger set (e.g. for fragment size when there are just too many for R to process)
+
+storage-bsg: ip$ pwd
+/well/bsg/microbial/mgtools
+storage-bsg: ip$ randkeep.py
+/well/bsg/microbial/analysis/sepsis/20160421-readdepth/testing.tsv 1.2 0
+| wc -l
+98
