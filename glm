@@ -1,5 +1,5 @@
 #glm
 
-data <- read.delim("aetiology_covariates.txt", header=TRUE, row.names=1)
-aetiology.age <- glm(aetiology ~ age, family=binomial)
-aetiology.age
+covdata <- read.delim("aetiology_covariates.txt", header=TRUE, row.names=1)
+aetiology.age <- glm(aetiology ~ age, data=covdata, family=binomial)
+summary(aetiology.age)
