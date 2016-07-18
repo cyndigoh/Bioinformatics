@@ -1,0 +1,58 @@
+#running Emma's script for 189 individuals, encapsulated bacterial n=136 and viral n=53
+library(glmnet)
+library(GeneRave)
+
+cov <- read.delim("C:/Users/cyndi/Desktop/covariates_189_noNA.txt", header=TRUE, row.names=1) #37 covariates, bacterial=1 viral=0
+cov$Bacterial <- as.numeric(cov$Bacterial)
+colnames(cov)[12] <- "Bicarbonate"
+
+out <- which(colnames(cov)=="Bacterial")
+cov.bacterial <- cov[,-out] #189 37
+
+#Fit a linear model to covariates to predict encapsulated bacterial infection over viral infection
+fitHG.cov <- HGglm(as.matrix(cov.bacterial), cov$Bacterial, model="B")
+colnames(cov.bacterial)[fitHG.cov$varids[-1]]
+#[1] "Mononucleocytes_raw" "WCC"                 "Bicarbonate" "Bilirubin"          
+#[5] "FIO2"                "Temp_high"           "HR_low"              "Ventilation"        
+#[9] "Renal_failure"
+
+#Look at each covariate individually, NB this data has no NAs 
+summary(glm(Bacterial ~ Mononucleocytes_raw, data=cov, family="binomial"))
+summary(glm(Bacterial ~ WCC, data=cov, family="binomial"))
+summary(glm(Bacterial ~ Bicarbonate, data=cov, family="binomial"))
+summary(glm(Bacterial ~ Bilirubin, data=cov, family="binomial"))
+summary(glm(Bacterial ~ FIO2, data=cov, family="binomial"))
+summary(glm(Bacterial ~ Temp_high, data=cov, family="binomial"))
+summary(glm(Bacterial ~ HR_low, data=cov, family="binomial"))
+summary(glm(Bacterial ~ Ventilation, data=cov, family="binomial"))
+summary(glm(Bacterial ~ Renal_failure, data=cov, family="binomial"))
+
+#Leave one out method for testing covariate only model (gives the misclassification rate)
+mod.cov <- cov.bacterial[,colnames(cov.bacterial)[fitHG.cov$varids[-1]]]
+mod.cov$Bacterial <- cov$Bacterial
+dim(mod.cov) #189 10
+results.cov <- matrix(ncol=2, nrow=189)
+results.cov[,1] <-cov$Bacterial
+for(i in 1:189){
+  mod <- mod.cov[-i,]
+  model <- glm(Bacterial ~., data=mod, family=binomial(logit))
+  prediction <- predict.glm(model, newdata=mod.cov[i,1:9], type="response")
+  results.cov[i,2] <- prediction
+}
+
+table(results.cov[,1], results.cov[,2]>0.5)
+
+#FALSE TRUE
+#0    36   17
+#1     9  127
+#MR=13.8%
+
+library(ROCR)
+pred.cov <- prediction(results.cov[,2], results.cov[,1])
+perf.cov <- performance(pred.cov, "tpr", "fpr")
+auc.cov <- performance(pred.cov, "auc")@y.values
+
+pdf("roc_bacterialviral_cov.pdf", width=15, height=9)
+par(xpd=TRUE, mar=c(5,5,4,20), cex.axis=2, cex.lab=2)
+plot(perf.cov, lwd=4)
+dev.off()
