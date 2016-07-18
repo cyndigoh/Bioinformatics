@@ -1,5 +1,52 @@
-#glm
+#glm.R script for 37 individual covariates, n=189 (encapsulated bacteria n=136; viral n=53)
+#read in data with NA's and ensures data read as characters not factors
+covwithNA <- read.delim("C:/Users/cyndi/Desktop/covariates_189_withNA.txt", header=TRUE, row.names=1, na.strings="NA", stringsAsFactors = FALSE) 
+str(covwithNA)
+#covwithNA$Bacterial <- as.numeric(covwithNA$Bacterial)
+#converts data from characters to numeric
+covwithNA[,c(2:38)] <- sapply(covwithNA[,c(2:38)], as.numeric)
 
-covdata <- read.delim("aetiology_covariates.txt", header=TRUE, row.names=1)
-aetiology.age <- glm(aetiology ~ age, data=covdata, family=binomial)
-summary(aetiology.age)
+#Test each individual covariate separately
+#Start by testing the 9 covariates included in the GeneRave linear model
+summary(glm(Bacterial ~ Mononucleocytes_raw, data=covwithNA, family="binomial"))
+summary(glm(Bacterial ~ WCC, data=covwithNA, family="binomial"))
+summary(glm(Bacterial ~ Bicarbonate, data=covwithNA, family="binomial"))
+summary(glm(Bacterial ~ Bilirubin, data=covwithNA, family="binomial"))
+summary(glm(Bacterial ~ FIO2, data=covwithNA, family="binomial"))
+summary(glm(Bacterial ~ Temp_high, data=covwithNA, family="binomial"))
+summary(glm(Bacterial ~ HR_low, data=covwithNA, family="binomial"))
+summary(glm(Bacterial ~ Ventilation, data=covwithNA, family="binomial"))
+summary(glm(Bacterial ~ Renal_failure, data=covwithNA, family="binomial"))
+
+summary(glm(Bacterial ~ Sex, data=covwithNA, family="binomial"))
+summary(glm(Bacterial ~ age, data=covwithNA, family="binomial"))
+summary(glm(Bacterial ~ Polynucleocytes_raw, data=covwithNA, family="binomial"))
+summary(glm(Bacterial ~ Lymphocytes_raw, data=covwithNA, family="binomial"))
+summary(glm(Bacterial ~ Polynucleocytes_prop, data=covwithNA, family="binomial"))
+summary(glm(Bacterial ~ Mononucleocytes_prop, data=covwithNA, family="binomial"))
+summary(glm(Bacterial ~ Lymphocytes_prop, data=covwithNA, family="binomial"))
+summary(glm(Bacterial ~ Corticosteroid, data=covwithNA, family="binomial"))
+summary(glm(Bacterial ~ PCO2, data=covwithNA, family="binomial"))
+summary(glm(Bacterial ~ PAO2, data=covwithNA, family="binomial"))
+summary(glm(Bacterial ~ Haematocrit, data=covwithNA, family="binomial"))
+summary(glm(Bacterial ~ Temp_low, data=covwithNA, family="binomial"))
+summary(glm(Bacterial ~ HR_high, data=covwithNA, family="binomial"))
+summary(glm(Bacterial ~ MAP_low, data=covwithNA, family="binomial"))
+summary(glm(Bacterial ~ MAP_high, data=covwithNA, family="binomial"))
+summary(glm(Bacterial ~ SBP_low, data=covwithNA, family="binomial"))
+summary(glm(Bacterial ~ SBP_high, data=covwithNA, family="binomial"))
+summary(glm(Bacterial ~ Sodium_low, data=covwithNA, family="binomial"))
+summary(glm(Bacterial ~ Sodium_high, data=covwithNA, family="binomial"))
+summary(glm(Bacterial ~ pH, data=covwithNA, family="binomial"))
+summary(glm(Bacterial ~ Platelets, data=covwithNA, family="binomial"))
+summary(glm(Bacterial ~ Resp_rate, data=covwithNA, family="binomial"))
+summary(glm(Bacterial ~ RRT, data=covwithNA, family="binomial"))
+summary(glm(Bacterial ~ Inotropes, data=covwithNA, family="binomial"))
+summary(glm(Bacterial ~ Creatinine_high, data=covwithNA, family="binomial"))
+summary(glm(Bacterial ~ Creatinine_low, data=covwithNA, family="binomial"))
+summary(glm(Bacterial ~ Potassium_low, data=covwithNA, family="binomial"))
+summary(glm(Bacterial ~ Potassium_high, data=covwithNA, family="binomial"))
+
+#Combined model for all statistically significant covariates
+summary(glm(Bacterial ~ WCC + Bicarbonate + Bilirubin + FIO2 + Temp_high + HR_low + Ventilation + Renal_failure + PCO2 + PAO2 + Haematocrit + Temp_low + HR_high + pH + Creatinine_high + Creatinine_low, data=covwithNA, family="binomial"))
+#In the combined model only WCC, bicarbonate and bilirubin are significant.
