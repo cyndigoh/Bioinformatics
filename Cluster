@@ -5,3 +5,15 @@ To query the status of the job: qstat
 To delete the job: qdel <jobnumber>
 Scripts must specify absolute paths to files
 Export PATH often required to load required programs
+
+#!/usr/bin/env bash
+#$ -cwd
+#$ -q short.qc
+#$ -P jknight.prjc
+#$ -N runreaddepth
+#$ -o /well/jknight/cyndi/qsub_logs
+#$ -e /well/jknight/cyndi/qsub_logs
+#$ -pe shmem 2
+#$ -V
+
+This last line allows you to use the environment of rescomp 
