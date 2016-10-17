@@ -1,0 +1,2 @@
+Get HEX colour numbers for RColorBrewer Palettes
+brewer.pal(4, "Set2")
