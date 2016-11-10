@@ -1,0 +1,4 @@
+df
+df -h
+Generates a log file at tmp/a.log which states the amount of space each directory is taking
+du -sh * > /tmp/a.log
