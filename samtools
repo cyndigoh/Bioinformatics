@@ -1,0 +1,2 @@
+Calculate read length
+samtools view WTCHG_296582_707503.bam | awk '{print length($10)}' | head -10 | sort -u
