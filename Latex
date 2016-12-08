@@ -1,0 +1,6 @@
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth, trim={0 2cm 0 6cm},clip]{./Images/1b_control_conc.pdf}
+\caption[1bcontrolconc]{For the ERCCs (a), there is a clear association observed between concentration and normalised read yield. For the plasmids (b), a similar trend is observed for p1990 and p2022. The anomaly observed with pHBV may have been due to inaccuraces in nucleic acid quantification and subsequent spike-ins. RPKM = reads per kilobase of fragment per million reads.}
+\label{fig:1bcontrolconc}
+\end{figure}
