@@ -1,0 +1,5 @@
+ssh galahad.well.ox.ac.uk
+sftp upload@ftp.well.ox.ac.uk
+(password we11come)
+lcd /well/jknight/cyndi/strep_phe
+get -r /home/upload/forCyndi/
