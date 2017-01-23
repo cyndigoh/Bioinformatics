@@ -3,3 +3,10 @@ sftp upload@ftp.well.ox.ac.uk
 (password we11come)
 lcd /well/jknight/cyndi/strep_phe
 get -r /home/upload/forCyndi/
+
+copy folder from local directory to remote server
+
+sftp cyndi@galahad.well.ox.ac.uk
+cd /well/jknight/cyndi/metagenomics_data/
+mkdir Axiom
+put -r /Users/cyndi/Desktop/Metagenomics/Axiom/
